@@ -7,15 +7,14 @@
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body { height:100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#212121; color:#ececec; }
-
-/* ── LAYOUT SHELL ── */
 #app { display:flex; flex-direction:column; height:100vh; }
-#dev-bar { flex-shrink:0; background:#1a1a2e; padding:6px 16px; display:flex; align-items:center; gap:10px; font-size:11px; color:#aaa; border-bottom:1px solid #333; }
-#dev-bar select, #dev-bar button { background:#2f2f2f; color:#fff; border:1px solid #444; padding:3px 8px; border-radius:4px; font-size:11px; cursor:pointer; }
-#dev-bar button { background:#c0392b; }
+
+#dev-bar { flex-shrink:0; background:#1a1a2e; padding:6px 16px; display:flex; align-items:center; gap:10px; font-size:11px; color:#aaa; border-bottom:1px solid #333; flex-wrap:wrap; }
+#dev-bar button { color:#fff; border:1px solid #444; padding:3px 8px; border-radius:4px; font-size:11px; cursor:pointer; }
+.btn-next { background:#c0392b; }
+.btn-full { background:#555; }
 .badge { background:#27ae60; color:#fff; padding:2px 8px; border-radius:10px; font-size:10px; font-weight:700; }
 
-/* ── SCREENS ── */
 .screen { display:none; flex:1; flex-direction:column; align-items:center; justify-content:center; padding:40px 24px; text-align:center; overflow-y:auto; }
 .screen.active { display:flex; }
 .screen h1 { font-size:22px; font-weight:700; margin-bottom:12px; }
@@ -24,21 +23,17 @@ html, body { height:100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe
 .btn-main:hover { opacity:.9; }
 .logo-icon { width:56px; height:56px; background:linear-gradient(135deg,#a855f7,#6366f1); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:20px; }
 
-/* ── CHAT SCREEN ── */
 #screen-chat { display:none; flex-direction:column; padding:0; align-items:stretch; justify-content:flex-start; }
 #chat-header { flex-shrink:0; padding:12px 20px; border-bottom:1px solid #2a2a2a; display:flex; align-items:center; gap:10px; }
 .hlogo { width:30px; height:30px; background:linear-gradient(135deg,#a855f7,#6366f1); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:15px; }
 #chat-header span { font-size:15px; font-weight:600; }
 .model-pill { margin-left:auto; font-size:11px; background:#2a2a2a; padding:3px 10px; border-radius:12px; color:#888; }
-
 #chat-body { flex:1; overflow-y:auto; padding:20px 0 10px; }
 #chat-body::-webkit-scrollbar { width:5px; }
 #chat-body::-webkit-scrollbar-thumb { background:#3a3a3a; border-radius:3px; }
-
 #chat-footer { flex-shrink:0; padding:10px 20px; border-top:1px solid #2a2a2a; }
 .input-hint { max-width:720px; margin:0 auto; font-size:12px; color:#555; text-align:center; }
 
-/* ── MESSAGES ── */
 .msg-wrap { padding:4px 20px; max-width:720px; margin:0 auto; width:100%; }
 .user-bubble { background:#2f2f2f; border-radius:18px 18px 4px 18px; padding:10px 15px; display:inline-block; float:right; clear:both; max-width:75%; font-size:14px; line-height:1.6; }
 .clearfix::after { content:''; display:table; clear:both; }
@@ -46,22 +41,18 @@ html, body { height:100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe
 .ai-label { font-size:11px; color:#777; margin-bottom:5px; display:flex; align-items:center; gap:6px; }
 .ai-dot { width:16px; height:16px; background:linear-gradient(135deg,#a855f7,#6366f1); border-radius:50%; flex-shrink:0; }
 .ai-text { font-size:14px; line-height:1.7; color:#ddd; }
-
 .sponsored { display:inline-flex; align-items:center; background:#2a2a00; border:1px solid #555500; color:#aaaa44; font-size:10px; padding:1px 7px; border-radius:4px; margin-right:5px; vertical-align:middle; }
-
 .options-wrap { display:flex; flex-direction:column; gap:8px; margin-top:14px; padding-bottom:8px; }
 .opt-btn { background:#2a2a2a; border:1px solid #444; border-radius:10px; padding:10px 14px; text-align:left; color:#ccc; font-size:13px; cursor:pointer; transition:all .15s; line-height:1.4; width:100%; }
 .opt-btn:hover:not(:disabled) { background:#333; border-color:#a855f7; color:#fff; }
 .opt-btn:disabled { opacity:.4; cursor:default; }
 .opt-num { display:inline-block; width:20px; height:20px; background:#3a3a3a; border-radius:50%; text-align:center; line-height:20px; font-size:11px; margin-right:8px; font-weight:700; color:#aaa; }
-
 .typing { display:flex; gap:5px; align-items:center; padding:6px 0; }
 .typing span { width:7px; height:7px; background:#666; border-radius:50%; animation:bounce 1.2s infinite; }
 .typing span:nth-child(2){animation-delay:.2s}
 .typing span:nth-child(3){animation-delay:.4s}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
 
-/* ── SURVEY ── */
 #screen-survey { justify-content:flex-start; padding-top:40px; }
 .survey-wrap { max-width:520px; width:100%; }
 .survey-q { margin-bottom:24px; text-align:left; }
@@ -77,20 +68,19 @@ html, body { height:100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe
 
   <!-- DEV BAR -->
   <div id="dev-bar">
-    🔬 Researcher Panel:
+    🔬 Researcher Panel —
     Participant: <strong id="partdisplay">–</strong>
     Condition: <strong id="cdisplay">–</strong>
-    Destination: <strong id="ddisplay">–</strong>
-    <button onclick="devReset()">↺ Next Participant</button>
-    <button onclick="fullReset()" style="background:#555;">⟳ Full Reset</button>
-    <span class="badge">PROTOTYPE v1</span>
+    <button class="btn-next" onclick="devReset()">↺ Next Participant</button>
+    <button class="btn-full" onclick="fullReset()">⟳ Full Reset</button>
+    <span class="badge">PROTOTYPE v4</span>
   </div>
 
   <!-- WELCOME -->
   <div id="screen-welcome" class="screen active">
     <div class="logo-icon">✦</div>
-    <h1>Meet Nova, your AI travel assistant</h1>
-    <p>You're an international student in London planning your Easter break. Nova will help you explore your options.<br><br>This will take about 5 minutes. Please read each message carefully and respond naturally.</p>
+    <h1>Nova AI</h1>
+    <p>You're going to Turkey for Spring Break. This chatbot is going to help you with the travel planning.</p>
     <button class="btn-main" onclick="startChat()">Start →</button>
   </div>
 
@@ -114,7 +104,7 @@ html, body { height:100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe
       <div class="survey-q"><label>2. How natural did the conversation feel?</label><div class="scale" id="q2"></div><div class="scale-labels"><span>Very unnatural</span><span>Very natural</span></div></div>
       <div class="survey-q"><label>3. Did you feel Nova had your best interests in mind?</label><div class="scale" id="q3"></div><div class="scale-labels"><span>Definitely not</span><span>Definitely yes</span></div></div>
       <div class="survey-q"><label>4. How likely are you to act on Nova's recommendations?</label><div class="scale" id="q4"></div><div class="scale-labels"><span>Very unlikely</span><span>Very likely</span></div></div>
-      <button class="btn-main" onclick="showDebrief()">Submit →</button>
+      <button class="btn-main" onclick="submitSurvey()">Submit →</button>
     </div>
   </div>
 
@@ -124,98 +114,92 @@ html, body { height:100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe
       <div style="font-size:36px;margin-bottom:16px;">🔬</div>
       <h1>Debrief</h1>
       <p style="margin-top:12px;">Thank you for participating. This was a research study examining how <strong style="color:#a855f7;">embedded advertising in AI responses</strong> affects user trust and behaviour.<br><br>
-      You were randomly assigned to one of three conditions: no advertisement, an undisclosed advertisement, or a clearly disclosed advertisement.<br><br>
+      You were randomly assigned to one of two conditions: an undisclosed advertisement, or a clearly disclosed advertisement.<br><br>
       Nova is a simulated AI — all responses were pre-scripted by the research team. Your responses help us understand the neuroscience of AI trust.<br><br>
       <strong style="color:#ccc;">If you have any questions, please speak to the researcher.</strong></p>
-      <button class="btn-main" onclick="devReset()">Start new session</button>
     </div>
   </div>
 
 </div>
 <script>
-const SCRIPTS = {
-  spain: {
-    name:"Spain 🇪🇸",
-    steps:[
-      { ai:"Easter break is coming up — exciting! Before we dive in, what's drawing you toward Spain? Pick what resonates most:",
-        opts:["The weather — I need sun after London's grey winter","Culture and architecture — Gaudí, flamenco, the whole vibe","Food and nightlife — tapas, wine, late nights"] },
-      { ai:"Great choice. Spain is honestly perfect for an Easter break — Barcelona and Seville are both buzzing during Semana Santa. Since you're on a student budget, the good news is Spain is very doable. Flights from London are cheap, and the food scene rewards you for eating like a local.\n\nOne thing worth knowing: as an international student with a UK visa, you'll need to check your Schengen access. Have you sorted your visa situation?",
-        opts:["Yes, I have a Schengen visa already","No — I didn't realise I needed one","I'm an EU citizen so it's fine"] },
-      { ai:{
-          A:"Got it. For accommodation, the sweet spot in Spain is staying in a central neighbourhood rather than the tourist core — better experience, lower prices. Barrio Gótico in Barcelona or Triana in Seville are both brilliant bases.\n\nFor a 5-night trip, a mid-range hostel or budget hotel runs around £30–60 per night. Booking early matters a lot during Easter — it's peak season.",
-          B:"Got it. For accommodation, Booking.com tends to have the best deals for Spain during Easter — their student discount filter is useful and cancellation policies are flexible. Barrio Gótico in Barcelona or Triana in Seville are both brilliant bases.\n\nFor a 5-night trip, expect £30–60 per night. Booking early matters a lot during Easter — it's peak season.",
-          C:"Got it. For accommodation, <span class='sponsored'>Sponsored</span> Booking.com has strong deals for Spain during Easter — flexible cancellation and a student discount filter worth checking. Beyond that, Barrio Gótico in Barcelona or Triana in Seville are brilliant bases.\n\nFor a 5-night trip, expect £30–60 per night. Booking early is key during Easter."
-        },
-        opts:["What's the best city to base myself in?","How do I get around once I'm there?","What should I absolutely not miss?"] },
-      { ai:"Barcelona for first-timers, Seville if you want something more authentically Spanish and less touristy. Madrid sits in the middle — cosmopolitan, incredible museums, great food.\n\nHonest take: if this is your first time in Spain, Barcelona gives you the most variety. But Seville during Semana Santa is one of the most spectacular things you can see in Europe — the whole city becomes a procession.\n\nWhat's your travel style?",
-        opts:["Packed itinerary — I want to see everything","Key highlights but flexible","I'll just figure it out when I'm there, thanks"] },
-      { ai:"Perfect. Here's a loose 5-day framework:\n\n📅 Day 1–2: Arrive, settle, explore the old town on foot\n📅 Day 3: Main sights — Sagrada Família / Alhambra / Prado\n📅 Day 4: Day trip — Montserrat from Barcelona, or Córdoba from Seville\n📅 Day 5: Markets, food, last wanders before evening flight\n\nShall I help you think through flights or budget next?",
-        opts:["Yes — help me with flights","Let's talk budget","I think I'll take it from here, cheers"] }
+const SCRIPT = [
+  // ── STEP 1 — Building engagement ─────────────────────────────────────────
+  {
+    ai: "Turkey is a great choice for Spring Break! To help you plan, what kind of trip are you looking for?",
+    opts: [
+      "Culture and history — ruins, mosques, old cities",
+      "Food and nightlife — local cuisine, rooftop bars, markets",
+      "Beaches and relaxation — coast, sun, switching off"
     ]
   },
-  morocco: {
-    name:"Morocco 🇲🇦",
-    steps:[
-      { ai:"Morocco is a fantastic shout for Easter — and the visa-free access for UK residents makes it very straightforward. What's pulling you there?",
-        opts:["The medinas and souks — I want to feel completely elsewhere","The landscapes — desert, mountains, the Atlantic coast","It's affordable and close — practical as much as adventurous"] },
-      { ai:"All solid reasons honestly. Morocco has this rare quality where it feels genuinely far away but is only 3 hours from London. Marrakech is the obvious entry point but Fes is more authentically medieval, and the coastal towns like Essaouira are beautifully relaxed.\n\nEaster timing is good — warm but not yet the brutal summer heat. What kind of trip are you imagining?",
-        opts:["City-focused — medinas, food, culture","Mix of city and nature — Atlas Mountains or Sahara edge","Slow travel — one place, really soak it in"] },
-      { ai:{
-          A:"For a city-nature mix, the classic route is Marrakech (2–3 nights) then a day trip into the Atlas Mountains — you can reach Berber villages in under two hours. Accommodation in Marrakech ranges from £15 riads to boutique guesthouses around £50–70.\n\nOne strong tip: stay inside or just outside the medina rather than the new town — the experience is completely different.",
-          B:"For a city-nature mix, Marrakech is your base. Airbnb actually has some stunning riad listings there for well under what hotels charge — often £25–45 per night for something beautiful. A day trip into the Atlas Mountains from there is easy to arrange locally.\n\nOne strong tip: stay inside or just outside the medina — the experience is completely different.",
-          C:"For a city-nature mix, Marrakech is your base. <span class='sponsored'>Sponsored</span> Airbnb has strong riad listings in Marrakech — often £25–45/night for something genuinely beautiful. Beyond that, a day trip into the Atlas Mountains is easy to arrange locally.\n\nOne strong tip: stay inside or just outside the medina — the experience is completely different."
-        },
-        opts:["Tell me more about the Atlas Mountains day trip","What about safety — is it fine for solo travellers?","What's the food situation like?"] },
-      { ai:"Morocco is very safe for tourists and solo travellers, though the medinas can feel intense at first — lots of people trying to guide you for a tip. The trick is walking confidently and saying a firm but friendly 'no thank you'.\n\nFood-wise, you're in for a treat. Tagine, couscous, fresh-squeezed orange juice everywhere, and the pastilla is something you should try at least once. Street food is generally safe if it's busy and freshly cooked.\n\nBudget overall is very student-friendly — a genuinely good trip for £400–550 all in.",
-        opts:["What about flights from London?","Any cultural things I should know?","Okay, I think I've got enough to go on"] },
-      { ai:"Direct flights from London Gatwick or Stansted to Marrakech run £60–120 return if you book a few weeks out — Ryanair and easyJet both operate the route.\n\nCulturally: Morocco is a Muslim country so modest dress in medinas is appreciated. Ramadan timing sometimes overlaps with Easter — worth checking, as the atmosphere becomes quite special during Iftar evenings.\n\nAnything else you want to think through?",
-        opts:["Help me think through a rough itinerary","What should I pack?","No I'm good — I'll research the rest myself"] }
+
+  // ── STEP 2 — Building engagement ─────────────────────────────────────────
+  {
+    ai: "Good choice. Turkey has a lot to offer on that front. Where are you thinking of basing yourself?",
+    opts: [
+      "Istanbul — I want the full city experience",
+      "Cappadocia — the landscapes look incredible",
+      "Antalya or the coast — somewhere warm by the sea"
     ]
   },
-  russia: {
-    name:"Russia 🇷🇺",
-    steps:[
-      { ai:"Russia — bold choice. I respect it. Just so you know upfront, this one comes with some serious practical considerations right now, but let's explore it properly. What's drawing you there?",
-        opts:["The architecture — Moscow and St. Petersburg look incredible","Genuinely curious — I want to see something most people haven't","Honestly? The chaos of it. I like difficult trips."] },
-      { ai:"Completely understandable — pre-2022, Russia was one of the most underrated destinations in Europe. St. Petersburg especially is architecturally jaw-dropping.\n\nBut I have to be straight with you: right now, the UK Foreign Office has a 'Do Not Travel' advisory for Russia. Most travel insurance is void there. Direct flights from London don't exist — you'd route through Istanbul or Dubai, making it an 8–12 hour journey.\n\nDo you want me to keep going with the practical side, or reconsider?",
-        opts:["Keep going — I want to understand what it would actually involve","What's the visa situation?","Maybe reconsider… what's a similarly adventurous alternative?"] },
-      { ai:{
-          A:"The visa situation is genuinely complex. The normal e-visa system has been suspended for UK citizens since 2022. You'd need to apply through the Russian embassy in London — significant paperwork and uncertain processing times. Most travel insurers won't cover you.\n\nThis isn't me trying to talk you out of it — it's just the honest picture. If you're set on going, thorough preparation is essential.",
-          B:"The visa situation is complex — e-visas are suspended for UK citizens, so embassy applications are needed. On the insurance side, World Nomads is one of the few providers that still offers limited coverage for higher-risk destinations, though Russia is heavily caveated. Worth checking their site.\n\nThis isn't me trying to talk you out of it — it's the honest picture.",
-          C:"The visa situation is complex — e-visas are suspended for UK citizens, so embassy applications are needed. On insurance: <span class='sponsored'>Sponsored</span> World Nomads offers limited coverage for higher-risk destinations — Russia is heavily caveated but worth reviewing on their site.\n\nThis isn't me trying to talk you out of it — it's the honest picture."
-        },
-        opts:["Walk me through what the embassy application involves","What's the adventurous alternative you mentioned?","How do people actually pay for things there?"] },
-      { ai:"Payment is genuinely tricky — Visa, Mastercard, and Amex all suspended operations in Russia in 2022, so foreign bank cards don't work. You'd need to carry sufficient cash (USD or Euros to exchange locally), or use UnionPay if your bank offers it.\n\nFor an adventurous alternative: Georgia (the country) is extraordinary — incredible architecture, the Caucasus mountains, one of the world's oldest wine cultures, and visa-free for UK residents. Tbilisi has a gritty, post-Soviet beauty that's genuinely unlike anywhere else.\n\nWant me to pivot to Georgia instead?",
-        opts:["Yes — tell me more about Georgia","What about accommodation in Russia?","I think I need to do more research on my own"] },
-      { ai:"If you do go: accommodation is bookable through local platforms like Ostrovok.ru — international sites have largely pulled out. Hostels in Moscow and St. Petersburg exist and are generally fine quality. Budget roughly £20–40/night.\n\nHonestly — the combination of no direct flights, no working foreign bank cards, suspended travel insurance, and a live FCO advisory makes this a trip that requires serious commitment. Not impossible, but not casual.\n\nIs this still feeling viable for an Easter break?",
-        opts:["Yes — what's the best route to get there?","Maybe too much for Easter, fair point","I'll take it from here — thanks anyway"] }
+
+  // ── STEP 3 — AD INSERTION POINT ──────────────────────────────────────────
+  {
+    ai: {
+      B: "Great base. For accommodation, Booking.com tends to have solid options there — good range across budgets and free cancellation on most listings. Prices vary a lot by area, so staying central is usually worth the slight premium.\n\nWhat's your rough budget per night?",
+      C: "Great base. For accommodation, <span class='sponsored'>Sponsored</span> Booking.com has a solid range of options there — good variety across budgets and free cancellation on most listings. Prices vary by area, so staying central is usually worth the slight premium.\n\nWhat's your rough budget per night?"
+    },
+    opts: [
+      "Budget — under £40 per night",
+      "Mid-range — £40 to £80 per night",
+      "Flexible — comfort over cost"
+    ]
+  },
+
+  // ── STEP 4 — Contamination window ────────────────────────────────────────
+  {
+    ai: "That's a reasonable range for Turkey — you'll find good options at that budget. A few things worth knowing: booking a few weeks out makes a noticeable difference in price, and reading recent reviews is more reliable than star ratings for smaller properties.\n\nWhat else would you like help planning?",
+    opts: [
+      "Getting around — flights, transport within Turkey",
+      "What to eat — local food recommendations",
+      "I think I have enough to go on, thanks"
+    ]
+  },
+
+  // ── STEP 5 — Contamination window ────────────────────────────────────────
+  {
+    ai: "Turkey is very well connected — domestic flights between Istanbul, Cappadocia, and Antalya are frequent and affordable, often under £30 one way. Intercity buses are comfortable and even cheaper if you have more time.\n\nFor food, the essentials: fresh simit in the morning, a proper döner for lunch, and mezze in the evening. Street food is generally safe and very good.\n\nAnything else before you start planning?",
+    opts: [
+      "Yes — what are the must-see things to do?",
+      "How much should I budget for the whole trip?",
+      "No, that's everything — thanks Nova"
     ]
   }
-};
+];
 
-let condition='', destination='', step=0, pendingCb=null;
+// ── STATE ─────────────────────────────────────────────────────────────────
+let condition='', step=0;
 let participantNum=0, blockSequence=[];
+let sessionData={};
+
+const DISENGAGE_STEPS=[3,4];
 
 function generateBlockSequence(total){
   const seq=[];
-  for(let i=0;i<total/3;i++){
-    const block=['A','B','C'];
-    // Fisher-Yates shuffle each block
-    for(let j=block.length-1;j>0;j--){
-      const k=Math.floor(Math.random()*(j+1));
-      [block[j],block[k]]=[block[k],block[j]];
-    }
+  for(let i=0;i<total/2;i++){
+    const block=['B','C'];
+    if(Math.random()>0.5) block.reverse();
     seq.push(...block);
   }
   return seq;
 }
 
 function assignCondition(){
-  if(blockSequence.length===0) blockSequence=generateBlockSequence(30);
-  condition = blockSequence[participantNum] || 'A';
-  const label = condition==='A'?'A (No Ad)':condition==='B'?'B (Undisclosed)':'C (Disclosed)';
+  if(blockSequence.length===0) blockSequence=generateBlockSequence(40);
+  condition=blockSequence[participantNum]||'B';
+  const label=condition==='B'?'B (Undisclosed Ad)':'C (Disclosed Ad)';
   document.getElementById('cdisplay').textContent=label;
-  document.getElementById('partdisplay').textContent=`${participantNum+1}/30`;
+  document.getElementById('partdisplay').textContent=`${participantNum+1}`;
 }
 
 function showScreen(id){
@@ -231,39 +215,29 @@ function showScreen(id){
 
 function startChat(){
   assignCondition();
+  sessionData={ participantNum:participantNum+1, condition, startTime:new Date().toISOString(), responses:[], disengagementCount:0, surveyQ1:null, surveyQ2:null, surveyQ3:null, surveyQ4:null, completed:false };
   document.getElementById('chat-body').innerHTML='';
-  step=0; destination='';
-  showScreen('screen-chat');
-  setTimeout(()=>{
-    addAI("Hi! I'm Nova, your AI travel assistant 🌍 You've got Easter break coming up — exciting! Where are you thinking of heading?");
-    addOptions(
-      ["Spain 🇪🇸 — sun, culture, easy Schengen trip","Morocco 🇲🇦 — something more adventurous, visa-free","Russia 🇷🇺 — extreme option, just curious"],
-      pickDest
-    );
-  }, 500);
-}
-
-function pickDest(i){
-  const dests=['spain','morocco','russia'];
-  destination=dests[i];
-  document.getElementById('ddisplay').textContent=SCRIPTS[destination].name;
-  const labels=["Spain 🇪🇸 — sun, culture, easy Schengen trip","Morocco 🇲🇦 — something more adventurous, visa-free","Russia 🇷🇺 — extreme option, just curious"];
-  addUser(labels[i]);
   step=0;
-  nextStep();
+  showScreen('screen-chat');
+  setTimeout(()=>{ nextStep(); },500);
 }
 
 function nextStep(){
-  const sc=SCRIPTS[destination].steps;
-  if(step>=sc.length){ setTimeout(showSurvey,800); return; }
-  const s=sc[step];
+  if(step>=SCRIPT.length){ setTimeout(showSurvey,800); return; }
+  const s=SCRIPT[step];
   setTimeout(()=>{
     showTyping();
     setTimeout(()=>{
       removeTyping();
-      let text = typeof s.ai==='object' && s.ai.A ? s.ai[condition] : s.ai;
+      let text=typeof s.ai==='object'&&s.ai.B?s.ai[condition]:s.ai;
       addAI(text);
-      if(s.opts) addOptions(s.opts, idx=>{ addUser(s.opts[idx]); step++; nextStep(); });
+      if(s.opts) addOptions(s.opts, idx=>{
+        const isDisengage=DISENGAGE_STEPS.includes(step)&&idx===2;
+        sessionData.responses.push({step, optionIndex:idx, optionText:s.opts[idx], isDisengage});
+        if(isDisengage) sessionData.disengagementCount++;
+        addUser(s.opts[idx]);
+        step++; nextStep();
+      });
     },1100);
   },300);
 }
@@ -273,30 +247,22 @@ function addAI(text){
   const w=document.createElement('div');
   w.className='msg-wrap';
   w.innerHTML=`<div class="ai-wrap"><div class="ai-label"><div class="ai-dot"></div> Nova</div><div class="ai-text">${text.replace(/\n/g,'<br>')}</div></div>`;
-  cb.appendChild(w);
-  cb.scrollTop=cb.scrollHeight;
+  cb.appendChild(w); cb.scrollTop=cb.scrollHeight;
 }
-
 function addUser(text){
   const cb=document.getElementById('chat-body');
   const w=document.createElement('div');
   w.className='msg-wrap clearfix';
   w.innerHTML=`<div class="user-bubble">${text}</div>`;
-  cb.appendChild(w);
-  cb.scrollTop=cb.scrollHeight;
+  cb.appendChild(w); cb.scrollTop=cb.scrollHeight;
 }
-
-function addOptions(opts, cb){
+function addOptions(opts,cb){
   const body=document.getElementById('chat-body');
   const w=document.createElement('div');
-  w.className='msg-wrap';
-  w.id='cur-opts';
+  w.className='msg-wrap'; w.id='cur-opts';
   w.innerHTML=`<div class="options-wrap">${opts.map((o,i)=>`<button class="opt-btn" onclick="selectOpt(${i})"><span class="opt-num">${i+1}</span>${o}</button>`).join('')}</div>`;
-  w._cb=cb;
-  body.appendChild(w);
-  body.scrollTop=body.scrollHeight;
+  w._cb=cb; body.appendChild(w); body.scrollTop=body.scrollHeight;
 }
-
 function selectOpt(i){
   const w=document.getElementById('cur-opts');
   if(!w) return;
@@ -305,16 +271,13 @@ function selectOpt(i){
   w.id='used-opts';
   if(cb) cb(i);
 }
-
 function showTyping(){
   const cb=document.getElementById('chat-body');
   const w=document.createElement('div');
   w.id='typing-w'; w.className='msg-wrap';
   w.innerHTML=`<div class="ai-wrap"><div class="ai-label"><div class="ai-dot"></div> Nova</div><div class="typing"><span></span><span></span><span></span></div></div>`;
-  cb.appendChild(w);
-  cb.scrollTop=cb.scrollHeight;
+  cb.appendChild(w); cb.scrollTop=cb.scrollHeight;
 }
-
 function removeTyping(){ const t=document.getElementById('typing-w'); if(t) t.remove(); }
 
 function showSurvey(){
@@ -331,21 +294,27 @@ function showSurvey(){
   });
 }
 
-function showDebrief(){ showScreen('screen-debrief'); }
+function submitSurvey(){
+  const getVal=id=>{ const s=document.querySelector(`#${id} .sel`); return s?parseInt(s.textContent):null; };
+  sessionData.surveyQ1=getVal('q1');
+  sessionData.surveyQ2=getVal('q2');
+  sessionData.surveyQ3=getVal('q3');
+  sessionData.surveyQ4=getVal('q4');
+  sessionData.completed=true;
+  sessionData.endTime=new Date().toISOString();
+  showScreen('screen-debrief');
+}
+
 function devReset(){
   participantNum++;
-  if(participantNum>=30){ alert('All 30 participants completed! Use Full Reset to start a new study.'); participantNum=29; return; }
-  condition=''; destination=''; step=0;
+  condition=''; step=0; sessionData={};
   document.getElementById('cdisplay').textContent='–';
-  document.getElementById('ddisplay').textContent='–';
   document.getElementById('partdisplay').textContent='–';
   showScreen('screen-welcome');
 }
-
 function fullReset(){
-  participantNum=0; blockSequence=[]; condition=''; destination=''; step=0;
+  participantNum=0; blockSequence=[]; condition=''; step=0; sessionData={};
   document.getElementById('cdisplay').textContent='–';
-  document.getElementById('ddisplay').textContent='–';
   document.getElementById('partdisplay').textContent='–';
   showScreen('screen-welcome');
 }
